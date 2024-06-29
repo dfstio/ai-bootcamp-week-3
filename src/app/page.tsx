@@ -64,6 +64,7 @@ export default function ImageGenerator() {
   const generateImage = async () => {
     setLoading(true);
     setDescription(undefined);
+    setImage(undefined);
     const newImage = await generateNewImage({
       prompt: prompt ?? "A beautiful painting of nature",
       ...imageParams,
@@ -96,19 +97,13 @@ export default function ImageGenerator() {
           {image && (
             <button
               onClick={generatePaintingDescription}
-              className=" text-white font-medium py-2 px-4 rounded-md h-10 bg-yellow-500 text-white hover:bg-yellow-600"
+              className="ml-40 text-white font-medium py-2 px-4 rounded-md h-10 bg-yellow-500 text-white hover:bg-yellow-600"
             >
               {describing
                 ? "Generating description..."
                 : "Generate Description"}
             </button>
           )}
-          <button
-            onClick={generateImage}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md h-10 ml-4 bg-yellow-500 text-white hover:bg-yellow-600"
-          >
-            {loading ? "Generating image..." : "Generate Image"}
-          </button>
         </div>
         {description && (
           <div className="mt-4">
@@ -147,6 +142,12 @@ export default function ImageGenerator() {
             <option value="abstract">Abstract</option>
           </select>
         </div>
+        <button
+          onClick={generateImage}
+          className="ml-20 mb-10 bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-md h-10 ml-4 bg-yellow-500 text-white hover:bg-yellow-600"
+        >
+          {loading ? "Generating image..." : "Generate Image"}
+        </button>
         <div className="mb-8">
           <label htmlFor="description" className="block font-medium mb-2">
             Painting Prompt:
