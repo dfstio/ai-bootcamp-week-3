@@ -63,6 +63,7 @@ export default function ImageGenerator() {
 
   const generateImage = async () => {
     setLoading(true);
+    setDescription(undefined);
     const newImage = await generateNewImage({
       prompt: prompt ?? "A beautiful painting of nature",
       ...imageParams,
@@ -109,16 +110,21 @@ export default function ImageGenerator() {
             {loading ? "Generating image..." : "Generate Image"}
           </button>
         </div>
-        <div className="mt-4">
-          <label htmlFor="imageDescription" className="block font-medium mb-2">
-            Image Description:
-          </label>
-          <textarea
-            id="imageDescription"
-            className="border rounded-md px-4 py-2 w-full h-32"
-            value={description}
-          />
-        </div>
+        {description && (
+          <div className="mt-4">
+            <label
+              htmlFor="imageDescription"
+              className="block font-medium mb-2"
+            >
+              Image Description:
+            </label>
+            <textarea
+              id="imageDescription"
+              className="border rounded-md px-4 py-2 w-full h-32"
+              value={description}
+            />
+          </div>
+        )}
       </div>
       <div className="md:w-1/2">
         <h1 className="text-3xl font-bold mb-4 text-yellow-600">
