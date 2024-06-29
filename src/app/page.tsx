@@ -34,10 +34,10 @@ const themes = {
 };
 
 export default function ImageGenerator() {
-  const [theme, setTheme] = useState("");
+  const [theme, setTheme] = useState("nature");
   const [image, setImage] = useState<string | undefined>(undefined);
   const [loading, setLoading] = useState(false);
-  const [prompt, setPrompt] = useState("");
+  const [prompt, setPrompt] = useState(themes["nature"]);
   const [describing, setDescribing] = useState(false);
   const [description, setDescription] = useState<string | undefined>(undefined);
   const [imageParams, setImageParams] = useState({
@@ -64,7 +64,7 @@ export default function ImageGenerator() {
   const generateImage = async () => {
     setLoading(true);
     const newImage = await generateNewImage({
-      prompt: description ?? "A beautiful painting of nature",
+      prompt: prompt ?? "A beautiful painting of nature",
       ...imageParams,
     });
     console.log("Generated Image", newImage);
