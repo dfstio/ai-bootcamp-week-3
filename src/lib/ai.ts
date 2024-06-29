@@ -8,40 +8,47 @@ import OpenAI from "openai";
 const baseURL = process.env.AI_BASE_URL;
 
 export async function describe(image: string): Promise<string> {
-  const openai = new OpenAI({ baseURL });
-  const messages: any[] = [
-    {
-      role: "system",
-      content:
-        "You are a helpful assistant, knowing very well how describe an image in the art professor style. Strictly describe only details about the elements, style, details, and colors of the image",
-      name: "system",
-    },
-    {
-      role: "user",
-      content: [
-        {
-          type: "text",
-          text: "Describe the image. ",
-        },
-        {
-          type: "image_url",
-          image_url: { url: image },
-        },
-      ],
-    },
-  ];
-  const completion = await openai.chat.completions.create({
-    model: "gpt-4o",
-    messages,
-  });
-  console.log("ChatGPT full log", completion);
+  try {
+    const openai = new OpenAI({ baseURL });
+    const messages: any[] = [
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant, knowing very well how describe an image in the art professor style. Strictly describe only details about the elements, style, details, and colors of the image",
+        name: "system",
+      },
+      {
+        role: "user",
+        content: [
+          {
+            type: "text",
+            text: "Describe the image. ",
+          },
+          {
+            type: "image_url",
+            image_url: { url: image },
+          },
+        ],
+      },
+    ];
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o",
+      messages,
+    });
+    console.log("ChatGPT full log", completion);
 
-  const answer = completion?.choices[0]?.message.content;
-  console.log("ChatGPT answer", answer);
-  return (
-    answer ??
-    "ChatGPT could not generate a description for this image. Please try again."
-  );
+    const answer = completion?.choices[0]?.message.content;
+    console.log("ChatGPT answer", answer);
+    return (
+      answer ??
+      "ChatGPT could not generate a description for this image. Please try again."
+    );
+  } catch (error: any) {
+    return "ChatGPT could not generate a description for this image. Please try again." +
+      error.message
+      ? error.message
+      : "";
+  }
 }
 
 export async function generateImage(params: {
