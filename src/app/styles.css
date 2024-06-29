@@ -1,0 +1,23 @@
+:root {
+  --radius: 0.5rem;
+}
+
+body {
+  font-family: var(--font-gabarito), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-gabarito), sans-serif;
+}
+
+.bg-yellow-100 {
+  background-color: #fef3c7 !important;
+}
+.text-yellow-800 {
+  color: #78350f !important;
+}
